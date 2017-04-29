@@ -18,7 +18,7 @@ module.exports = {
       'babel-polyfill',
       path.resolve(__dirname, 'scripts/index.js')
     ],
-    vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
+    vendor: ['pixi', 'p2', 'phaser', 'webfontloader', 'phaser-input']
   },
   devtool: 'cheap-source-map',
   output: {
@@ -30,7 +30,9 @@ module.exports = {
   watch: true,
   plugins: [
     definePlugin,
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */
+    }),
     new BrowserSyncPlugin({
       host: process.env.IP || 'localhost',
       port: process.env.PORT || 3000,
@@ -40,11 +42,12 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'scripts') },
-      { test: /pixi\.js/, loader: 'expose?PIXI' },
-      { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
-      { test: /p2\.js/, loader: 'expose?p2' }
+    rules: [
+      { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
+      { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
+      { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
+      { test: /p2\.js/, use: ['expose-loader?p2'] },
+      { test: /phaser-input\.js$/, use: ['exports-loader?PhaserInput=PhaserInput'] }
     ]
   },
   node: {
@@ -56,7 +59,8 @@ module.exports = {
     alias: {
       'phaser': phaser,
       'pixi': pixi,
-      'p2': p2
+      'p2': p2,
+      'phaser-input': path.join(__dirname, '/node_modules/@orange-games/phaser-input/build/phaser-input.js')
     }
   }
 }

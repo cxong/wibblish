@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+const PhaserInput = require('phaser-input').PhaserInput
 
 export default class extends Phaser.State {
   init() {
@@ -15,11 +16,12 @@ export default class extends Phaser.State {
   preload() {
     this.game.load.spritesheet(
       'merc', 'images/merc.png', 32, 32
-    );
+    )
+    this.game.add.plugin(PhaserInput.Plugin)
   }
 
   create() {
-    this.game.stage.backgroundColor = 0x000000;
+    this.game.stage.backgroundColor = 0xffffff;
     this.input.maxPointers = 1;
 
     this.state.start('Preload');
