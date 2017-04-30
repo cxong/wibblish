@@ -17,12 +17,11 @@ export default class extends Phaser.State {
     }
 
     const margin = 10
-    this.text = this.game.add.text(
-      margin, SCREEN_HEIGHT / 2 + margin, '', {
-        font: '36px VT323',
-        fill: '#212121'
-      }
+    this.text = this.game.add.bitmapText(
+      margin, SCREEN_HEIGHT / 2 + margin, 'alagard'
     )
+    this.text.maxWidth = SCREEN_WIDTH - margin * 2
+    this.text.tint = 0x212121
     this.groups.ui.add(this.text)
   }
 

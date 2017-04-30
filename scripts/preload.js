@@ -13,42 +13,48 @@ const assets = {
   ],
   music: [
     //'title', '1'
+  ],
+  bitmapFonts: [
+    'alagard'
   ]
 }
 
 export default class extends Phaser.State {
   init() {
-    this.preloadBar = null;
+    this.preloadBar = null
   }
 
   preload() {
     this.preloadBar = this.add.sprite((SCREEN_WIDTH - 24) / 2,
                                       (SCREEN_HEIGHT - 24) / 2,
-                                      'merc');
+                                      'merc')
     /*this.preloadBar.animations.add(
       'run_right', [12, 13, 14, 15], 20, true
     );
     this.preloadBar.animations.play('run_right');*/
-    this.load.setPreloadSprite(this.preloadBar);
+    this.load.setPreloadSprite(this.preloadBar)
 
-    var basicGame = this;
+    var basicGame = this
     assets.spritesheets.map(function(s) {
       basicGame.game.load.spritesheet(
-        s[0], 'images/' + s[0] + '.png', s[1], s[2]);
-    });
+        s[0], 'images/' + s[0] + '.png', s[1], s[2])
+    })
     assets.images.map(function(i) {
-      basicGame.game.load.image(i, 'images/' + i + '.png');
-    });
+      basicGame.game.load.image(i, 'images/' + i + '.png')
+    })
     assets.music.map(function(i) {
-      basicGame.game.load.audio(i, 'music/' + i + '.ogg');
-    });
-
+      basicGame.game.load.audio(i, 'music/' + i + '.ogg')
+    })
     assets.sounds.map(function(i) {
-      basicGame.game.load.audio(i, 'sounds/' + i + '.wav');
-    });
+      basicGame.game.load.audio(i, 'sounds/' + i + '.wav')
+    })
+    assets.bitmapFonts.map(function(i) {
+      basicGame.game.load.bitmapFont(
+        i, 'images/' + i + '.png', 'images/' + i + '.xml')
+    })
   }
 
   create() {
-    this.state.start('Game');
+    this.state.start('Game')
   }
 }
