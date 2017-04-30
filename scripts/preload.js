@@ -3,7 +3,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 
 const assets = {
   spritesheets: [
-    //['merc_upper', 32, 36],
+    ['button', 32, 16]
   ],
   images: [
     //'collision_block', 'ground', 'bullet',
@@ -16,6 +16,9 @@ const assets = {
   ],
   bitmapFonts: [
     'alagard'
+  ],
+  nineSlices: [
+    ['frame', 7, 10, 10, 7]
   ]
 }
 
@@ -35,25 +38,27 @@ export default class extends Phaser.State {
     this.load.setPreloadSprite(this.preloadBar)
 
     var basicGame = this
-    assets.spritesheets.map(function(s) {
+    assets.spritesheets.map((s) => {
       basicGame.game.load.spritesheet(
         s[0], 'images/' + s[0] + '.png', s[1], s[2])
     })
-    assets.images.map(function(i) {
+    assets.images.map((i) => {
       basicGame.game.load.image(i, 'images/' + i + '.png')
     })
-    assets.music.map(function(i) {
+    assets.music.map((i) => {
       basicGame.game.load.audio(i, 'music/' + i + '.ogg')
     })
-    assets.sounds.map(function(i) {
+    assets.sounds.map((i) => {
       basicGame.game.load.audio(i, 'sounds/' + i + '.wav')
     })
-    assets.bitmapFonts.map(function(i) {
+    assets.bitmapFonts.map((i) => {
       basicGame.game.load.bitmapFont(
         i, 'images/' + i + '.png', 'images/' + i + '.xml')
     })
-
-    this.game.load.nineSlice('frame', 'images/frame9.png', 7, 10, 10, 7)
+    assets.nineSlices.map((s) => {
+      basicGame.game.load.nineSlice(
+        s[0], 'images/' + s[0] + '.png', s[1], s[2], s[3], s[4])
+    })
   }
 
   create() {

@@ -34,6 +34,14 @@ export default class extends Phaser.State {
     this.text.maxWidth = SCREEN_WIDTH - margin * 2
     this.text.tint = 0xdeeed6
     this.groups.ui.add(this.text)
+
+    this.playButton = this.game.add.button(
+      SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'button', () => {
+        console.log('clicked!')
+      }, this, 1, 0, 2)
+    this.playButton.scale.setTo(2, 2)
+    this.playButton.anchor.setTo(0.5)
+    this.groups.ui.add(this.playButton)
   }
 
   update() {
