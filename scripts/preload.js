@@ -6,7 +6,7 @@ const assets = {
     ['button', 32, 16]
   ],
   images: [
-    //'collision_block', 'ground', 'bullet',
+    'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape'
   ],
   sounds: [
     //'catch', 'die', 'hit', 'land', 'jump',
