@@ -44,8 +44,7 @@ module.exports = {
       { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
       { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
       { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
-      { test: /p2\.js/, use: ['expose-loader?p2'] },
-      { test: /phaser-input\.js$/, use: ['exports-loader?PhaserInput=PhaserInput'] }
+      { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
   },
   node: {
@@ -57,8 +56,7 @@ module.exports = {
     alias: {
       'phaser': phaser,
       'pixi': pixi,
-      'p2': p2,
-      'phaser-input': path.join(__dirname, '/node_modules/@orange-games/phaser-input/build/phaser-input.js')
+      'p2': p2
     }
   }
 }

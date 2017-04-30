@@ -11,21 +11,28 @@
       src: local('VT323'), local('VT323-Regular'), url(VT323-Regular.ttf) format('truetype');
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
   }
-  html, body {
-      height: 100%;
-      min-height: 100%;
-  }
-  body{
-      margin: 0;
-      padding: 0;
+  body {
       font-family: VT323, monospace;
       background-color: #fff;
+  }
+  div#speechOuter {
+    width: 640px;
+  }
+  textarea#speech {
+    height: 100px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
   </style>
 </head>
 <body>
   <div id="gameContainer"></div>
   <div id="fontLoader">by congusbongusgames</div>
+  <div id="speechOuter">
+    <textarea id="speech">Hello world</textarea>
+  </div>
   <script src="dist/vendor.bundle.js"></script>
   <script src="dist/bundle.js"></script>
 </body>

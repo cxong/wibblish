@@ -1,14 +1,9 @@
 import Phaser from 'phaser'
-const PhaserInput = require('phaser-input').PhaserInput
 
 export default class extends Phaser.State {
   init() {
-    // Stretch to fit screen, but maintain aspect ratio
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.game.scale.pageAlignHorizontally = true;
-    this.game.scale.pageAlignVertically = true;
-    this.game.scale.compatibility.forceMinimumDocumentHeight = true;
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.compatibility.forceMinimumDocumentHeight = true
     this.game.scale.windowConstraints = {'right': 'layout', 'bottom': 'layout'}
     this.game.renderer.renderSession.roundPixels = true
   }
@@ -17,13 +12,12 @@ export default class extends Phaser.State {
     this.game.load.spritesheet(
       'merc', 'images/merc.png', 32, 32
     )
-    this.game.add.plugin(PhaserInput.Plugin)
   }
 
   create() {
-    this.game.stage.backgroundColor = 0xffffff;
-    this.input.maxPointers = 1;
+    this.game.stage.backgroundColor = 0xffffff
+    this.input.maxPointers = 1
 
-    this.state.start('Preload');
+    this.state.start('Preload')
   }
 }
