@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+const PhaserNineSlice = require('phaser-nineslice').PhaserNineSlice
 
 export default class extends Phaser.State {
   init() {
@@ -12,6 +13,7 @@ export default class extends Phaser.State {
     this.game.load.spritesheet(
       'merc', 'images/merc.png', 32, 32
     )
+    this.game.add.plugin(PhaserNineSlice.Plugin)
   }
 
   create() {

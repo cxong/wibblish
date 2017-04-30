@@ -18,7 +18,7 @@ module.exports = {
       'babel-polyfill',
       path.resolve(__dirname, 'scripts/index.js')
     ],
-    vendor: ['pixi', 'p2', 'phaser', 'webfontloader', 'phaser-input']
+    vendor: ['pixi', 'p2', 'phaser', 'webfontloader', 'phaser-nineslice']
   },
   devtool: 'cheap-source-map',
   output: {
@@ -46,7 +46,8 @@ module.exports = {
       { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
       { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
       { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
-      { test: /p2\.js/, use: ['expose-loader?p2'] }
+      { test: /p2\.js/, use: ['expose-loader?p2'] },
+      { test: /phaser-nineslice\.js$/, use: ['exports-loader?PhaserNineSlice=PhaserNineSlice'] }
     ]
   },
   node: {
@@ -58,7 +59,8 @@ module.exports = {
     alias: {
       'phaser': phaser,
       'pixi': pixi,
-      'p2': p2
+      'p2': p2,
+      'phaser-nineslice': path.join(__dirname, '/node_modules/@orange-games/phaser-nineslice/build/phaser-nineslice.js')
     }
   }
 }

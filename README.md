@@ -11,3 +11,5 @@ Gibberish speech generator toy
 - Code: MIT
 - images/alagard: http://www.dafont.com/alagard.font by Hewett Tsoi
   > Give credit if used. That's it.
+
+- UI: Golden UI by Buch https://opengameart.org/content/golden-ui CC0

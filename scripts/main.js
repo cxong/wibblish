@@ -16,12 +16,23 @@ export default class extends Phaser.State {
       ui: this.game.add.group()
     }
 
-    const margin = 10
+    const frameMargin = 10
+    const frameWidth = SCREEN_WIDTH - frameMargin * 2
+    const frameHeight = SCREEN_HEIGHT / 2 - frameMargin * 2
+
+    const frame = this.game.add.nineSlice(
+      frameMargin, SCREEN_HEIGHT / 2 + frameMargin, 'frame', null,
+      frameWidth / 2, frameHeight / 2)
+    frame.scale.setTo(2, 2)
+    this.groups.ui.add(frame)
+
+    const margin = 20 + frameMargin
+
     this.text = this.game.add.bitmapText(
       margin, SCREEN_HEIGHT / 2 + margin, 'alagard'
     )
     this.text.maxWidth = SCREEN_WIDTH - margin * 2
-    this.text.tint = 0x212121
+    this.text.tint = 0xdeeed6
     this.groups.ui.add(this.text)
   }
 

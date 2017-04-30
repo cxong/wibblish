@@ -12,7 +12,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@orange-games/phaser-input": "^2.0.3",
+    "@orange-games/phaser-nineslice": "^2.0.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-polyfill": "^6.20.0",

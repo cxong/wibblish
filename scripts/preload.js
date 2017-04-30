@@ -52,6 +52,8 @@ export default class extends Phaser.State {
       basicGame.game.load.bitmapFont(
         i, 'images/' + i + '.png', 'images/' + i + '.xml')
     })
+
+    this.game.load.nineSlice('frame', 'images/frame9.png', 7, 10, 10, 7)
   }
 
   create() {
