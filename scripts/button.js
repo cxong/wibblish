@@ -1,14 +1,15 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.Group {
-  constructor(game, x, y, key, label, labelKey, callback, callbackContext) {
+  constructor(
+    game, x, y, key, label, labelKey, fontSize, callback, callbackContext) {
     super(game)
     this.x = x
     this.y = y
     this.button = new Phaser.Button(
       game, 0, 0, null, callback, callbackContext, 1, 0, 2)
     this.scale.setTo(2)
-    this.label = game.add.bitmapText(0, 0, labelKey, label)
+    this.label = game.add.bitmapText(0, 0, labelKey, label, fontSize)
     this.label.scale.setTo(0.5)
 
     this.normalSlice = game.add.nineSlice(
@@ -24,11 +25,11 @@ export default class extends Phaser.Group {
 
     // Calculate sizes
     this.label.x = this.normalSlice.leftSize
-    this.label.y = this.normalSlice.topSize
+    this.label.y = this.normalSlice.topSize / 2
     const width =
       this.label.width + this.normalSlice.leftSize + this.normalSlice.rightSize
     const height =
-      this.label.height + this.normalSlice.topSize + this.normalSlice.bottomSize
+      this.label.height + this.normalSlice.topSize / 2 + this.normalSlice.bottomSize * 0.75
     this.normalSlice.resize(width, height)
     this.overSlice.resize(width, height)
     this.downSlice.resize(width, height)

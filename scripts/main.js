@@ -26,8 +26,8 @@ export default class extends Phaser.State {
 
     const frameMargin = 10
     const frameWidth = SCREEN_WIDTH - frameMargin * 2
-    const frameY = SCREEN_HEIGHT / 2 + frameMargin
-    const frameHeight = SCREEN_HEIGHT / 2 - frameMargin * 2
+    const frameY = SCREEN_HEIGHT * 3 / 5 + frameMargin
+    const frameHeight = SCREEN_HEIGHT * 2 / 5 - frameMargin * 2
 
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
@@ -46,14 +46,15 @@ export default class extends Phaser.State {
 
     this.bgButton = new Button(
       this.game,
-      frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard',
+      frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
       this.cycleBg, this)
     this.bgButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.bgButton)
 
     this.playButton = new Button(
       this.game,
-      SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'button', 'Say!', 'alagard', () => {
+      10, SCREEN_HEIGHT / 2, 'button', 'Say!', 'alagard', 32,
+      () => {
         console.log('clicked!')
       }, this)
     this.playButton.label.tint = 0xdeeed6
