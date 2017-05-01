@@ -46,14 +46,17 @@ export default class extends Phaser.State {
 
     this.bgButton = new Button(
       this.game,
-      frameMargin, frameMargin, 'button', 'Cycle BG', this.cycleBg, this)
+      frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard',
+      this.cycleBg, this)
+    this.bgButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.bgButton)
 
     this.playButton = new Button(
       this.game,
-      SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'button', 'Say!', () => {
+      SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'button', 'Say!', 'alagard', () => {
         console.log('clicked!')
       }, this)
+    this.playButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.playButton)
   }
 
