@@ -54,7 +54,6 @@ export default class extends Phaser.State {
       SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'button', 'Say!', () => {
         console.log('clicked!')
       }, this)
-    this.playButton.anchor.setTo(0.5)
     this.groups.ui.add(this.playButton)
   }
 

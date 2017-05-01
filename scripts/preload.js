@@ -3,7 +3,6 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 
 const assets = {
   spritesheets: [
-    ['button', 32, 16]
   ],
   images: [
     'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape'
@@ -19,6 +18,9 @@ const assets = {
   ],
   nineSlices: [
     ['frame', 7, 10, 10, 7]
+  ],
+  nineSliceButtons: [
+    ['button', 9, 6, 6, 9]
   ]
 }
 
@@ -58,6 +60,14 @@ export default class extends Phaser.State {
     assets.nineSlices.map((s) => {
       basicGame.game.load.nineSlice(
         s[0], 'images/' + s[0] + '.png', s[1], s[2], s[3], s[4])
+    })
+    assets.nineSliceButtons.map((s) => {
+      basicGame.game.load.nineSlice(
+        s[0], 'images/' + s[0] + '.png', s[1], s[2], s[3], s[4])
+      basicGame.game.load.nineSlice(
+        s[0] + '_over', 'images/' + s[0] + '_over.png', s[1], s[2], s[3], s[4])
+      basicGame.game.load.nineSlice(
+        s[0] + '_down', 'images/' + s[0] + '_down.png', s[1], s[2], s[3], s[4])
     })
   }
 
