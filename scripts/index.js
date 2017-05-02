@@ -11,11 +11,11 @@ class Game extends Phaser.Game {
     super(
       SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, 'gameContainer', null,
       transparent, antialias)
-    document.getElementById('fontLoader').style.display = 'none';
-    this.state.add('Boot', BootState);
-    this.state.add('Preload', PreloadState);
-    this.state.add('Game', GameState);
-    this.state.start('Boot');
+    document.getElementById('fontLoader').style.display = 'none'
+    this.state.add('Boot', BootState)
+    this.state.add('Preload', PreloadState)
+    this.state.add('Game', GameState)
+    this.state.start('Boot')
   }
 }
 

@@ -2,6 +2,8 @@ import Phaser from 'phaser'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import Button from './button'
 
+const CHAR_FRAMES = 5
+
 export default class extends Phaser.State {
   preload() {
   }
@@ -10,7 +12,7 @@ export default class extends Phaser.State {
     this.game.stage.backgroundColor = 0xcccccc
 
     this.sounds = {
-      //catch: this.game.add.audio('catch'),
+      beep: this.game.add.audio('beep')
     }
 
     this.bgs = [
@@ -44,6 +46,8 @@ export default class extends Phaser.State {
     this.text.tint = 0xdeeed6
     this.groups.ui.add(this.text)
 
+    this.resetText()
+
     this.bgButton = new Button(
       this.game,
       frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
@@ -55,7 +59,7 @@ export default class extends Phaser.State {
       this.game,
       10, SCREEN_HEIGHT / 2, 'button', 'Say!', 'alagard', 32,
       () => {
-        console.log('clicked!')
+        this.resetText()
       }, this)
     this.playButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.playButton)
@@ -69,8 +73,30 @@ export default class extends Phaser.State {
     this.groups.bg.add(this.bg)
   }
 
+  resetText() {
+    this.nextCharTimer = 0
+    this.charIndex = 0
+    this.text.text = ''
+  }
+
   update() {
-    this.text.text = document.getElementById('speech').value
+    const text = document.getElementById('speech').value
+
+    if (text.startsWith(this.text.text)) {
+      if (this.charIndex < text.length) {
+        this.nextCharTimer--
+        if (this.nextCharTimer <= 0) {
+          this.charIndex++
+          this.text.text = text.substring(0, this.charIndex)
+          this.nextCharTimer = CHAR_FRAMES
+          if (!/\s/.test(this.text.text[this.charIndex - 1])) {
+            this.sounds.beep.play()
+          }
+        }
+      }
+    } else {
+      this.resetText()
+    }
   }
 
   render() {

@@ -8,10 +8,10 @@ const assets = {
     'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape'
   ],
   sounds: [
-    //'catch', 'die', 'hit', 'land', 'jump',
+    'beep'
   ],
   music: [
-    //'title', '1'
+    // 'title', '1'
   ],
   bitmapFonts: [
     'alagard'
@@ -51,7 +51,7 @@ export default class extends Phaser.State {
       basicGame.game.load.audio(i, 'music/' + i + '.ogg')
     })
     assets.sounds.map((i) => {
-      basicGame.game.load.audio(i, 'sounds/' + i + '.wav')
+      basicGame.game.load.audio(i, 'sounds/' + i + '.ogg')
     })
     assets.bitmapFonts.map((i) => {
       basicGame.game.load.bitmapFont(
