@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import Button from './button'
+import Generator from './generator/main'
 
 const CHAR_FRAMES = 5
 
@@ -63,6 +64,17 @@ export default class extends Phaser.State {
       }, this)
     this.playButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.playButton)
+
+    this.generator = new Generator()
+
+    this.generateButton = new Button(
+      this.game,
+      100, SCREEN_HEIGHT / 2, 'button', 'Generate', 'alagard', 32,
+      () => {
+        document.getElementById('speech').value = this.generator.generateText(1, 0)
+      }, this)
+    this.generateButton.label.tint = 0xdeeed6
+    this.groups.ui.add(this.generateButton)
   }
 
   cycleBg() {

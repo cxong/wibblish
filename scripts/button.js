@@ -29,7 +29,7 @@ export default class extends Phaser.Group {
     const width =
       this.label.width + this.normalSlice.leftSize + this.normalSlice.rightSize
     const height =
-      this.label.height + this.normalSlice.topSize / 2 + this.normalSlice.bottomSize * 0.75
+      this.label.fontSize * 0.4 + this.normalSlice.topSize / 2 + this.normalSlice.bottomSize * 0.75
     this.normalSlice.resize(width, height)
     this.overSlice.resize(width, height)
     this.downSlice.resize(width, height)

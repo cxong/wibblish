@@ -9,6 +9,7 @@ Gibberish speech generator toy
 ## Licenses
 
 - Code: MIT
+- Random text generator: New Age Bullshit Generator https://github.com/sebpearce/bullshit MIT
 - images/alagard: http://www.dafont.com/alagard.font by Hewett Tsoi
   > Give credit if used. That's it.
 
