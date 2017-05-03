@@ -18,8 +18,9 @@ export default class extends Phaser.State {
     }
 
     this.bgs = [
-      'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape']
-    this.bgIndex = -1
+      'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
+      'bg/urban_landscape']
+    this.bgIndex = 2
 
     this.groups = {
       bg: this.game.add.group(),

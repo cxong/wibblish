@@ -18,6 +18,7 @@ Gibberish speech generator toy
   - country_side: Country Side Platform Tiles by ansimuz https://opengameart.org/content/country-side-platform-tiles CC0
   - hazy_hills: Battle Background - Hazy Hills by ansimuz https://opengameart.org/content/battle-background-hazy-hills-0 CC-BY 3.0
   - sky: Sky background by PauR https://opengameart.org/content/sky-background CC-BY 3.0
+  - space: Space backgrounds by Rawdanitsu https://opengameart.org/content/space-backgrounds-1 CC0
   - urban_landscape: Urban Landscape by ansimuz https://opengameart.org/content/urban-landscape CC0
 - Heads:
   - reticulan: Modular Reticulan Portraits by surt https://opengameart.org/content/modular-reticulan-portraits CC-BY 3.0
