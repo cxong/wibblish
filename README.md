@@ -19,4 +19,6 @@ Gibberish speech generator toy
   - hazy_hills: Battle Background - Hazy Hills by ansimuz https://opengameart.org/content/battle-background-hazy-hills-0 CC-BY 3.0
   - sky: Sky background by PauR https://opengameart.org/content/sky-background CC-BY 3.0
   - urban_landscape: Urban Landscape by ansimuz https://opengameart.org/content/urban-landscape CC0
+- Heads:
+  - reticulan: Modular Reticulan Portraits by surt https://opengameart.org/content/modular-reticulan-portraits CC-BY 3.0
 - sounds/beep: GUI sounds collection by copyc4t https://opengameart.org/content/gui-sounds-collection CC-BY 3.0

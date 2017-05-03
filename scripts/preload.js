@@ -5,7 +5,8 @@ const assets = {
   spritesheets: [
   ],
   images: [
-    'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape'
+    'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/urban_landscape',
+    'heads/reticulan', 'heads/reticulan_mouth'
   ],
   sounds: [
     'beep'

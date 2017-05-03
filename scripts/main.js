@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import Button from './button'
 import Generator from './generator/main'
+import Head from './head'
 
 const CHAR_FRAMES = 5
 
@@ -22,15 +23,21 @@ export default class extends Phaser.State {
 
     this.groups = {
       bg: this.game.add.group(),
+      head: this.game.add.group(),
       ui: this.game.add.group()
     }
 
     this.cycleBg()
 
+    const yRatio = SCREEN_HEIGHT * 3 / 5
     const frameMargin = 10
     const frameWidth = SCREEN_WIDTH - frameMargin * 2
-    const frameY = SCREEN_HEIGHT * 3 / 5 + frameMargin
-    const frameHeight = SCREEN_HEIGHT * 2 / 5 - frameMargin * 2
+    const frameY = yRatio + frameMargin
+    const frameHeight = SCREEN_HEIGHT - yRatio - frameMargin * 2
+
+    this.head = new Head(
+      this.game, SCREEN_WIDTH / 2, frameY, 'heads/reticulan', 3)
+    this.groups.head.add(this.head)
 
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
@@ -101,10 +108,18 @@ export default class extends Phaser.State {
           this.charIndex++
           this.text.text = text.substring(0, this.charIndex)
           this.nextCharTimer = CHAR_FRAMES
-          if (!/\s/.test(this.text.text[this.charIndex - 1])) {
+          const newChar = this.text.text[this.charIndex - 1]
+          if (!/\s/.test(newChar)) {
             this.sounds.beep.play()
+            if ((/^[aeiouy]$/i).test(newChar)) {
+              this.head.mouthOpen()
+            } else {
+              this.head.mouthClose()
+            }
           }
         }
+      } else {
+        this.head.mouthClose()
       }
     } else {
       this.resetText()
