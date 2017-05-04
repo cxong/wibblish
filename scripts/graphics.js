@@ -1,0 +1,7 @@
+const SCREEN_WIDTH = 640
+const SCREEN_HEIGHT = 480
+
+export {
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT
+}
