@@ -7,7 +7,7 @@ const assets = {
   images: [
     'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
     'bg/urban_landscape',
-    'heads/reticulan', 'heads/reticulan_mouth'
+    'heads/reticulan', 'heads/reticulan_eyelids', 'heads/reticulan_mouth'
   ],
   sounds: [
     'beep'
