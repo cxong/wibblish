@@ -3,6 +3,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
+import SliderButton from './slider_button'
 
 const CHAR_FRAMES = 5
 
@@ -40,6 +41,7 @@ export default class extends Phaser.State {
       return this.game.add.audio(sound)
     })
     this.soundIndex = -1
+    this.soundPitch = 1
     this.cycleSound()
 
     const frame = this.game.add.nineSlice(
@@ -82,6 +84,20 @@ export default class extends Phaser.State {
       this.cycleSound, this)
     soundButton.label.tint = 0xdeeed6
     this.groups.ui.add(soundButton)
+
+    buttonX += soundButton.width + frameMargin
+    const pitchButton = new SliderButton(
+      this.game,
+      buttonX, frameMargin, 'button', 'Pitch: ', 'alagard', 18,
+      (button, d) => {
+        this.soundPitch += d.x
+        this.soundPitch -= d.y
+        this.soundPitch = Math.min(8, Math.max(0.1, this.soundPitch))
+        button.setLabel(this.soundPitch)
+      }
+    )
+    pitchButton.label.tint = 0xdeeed6
+    this.groups.ui.add(pitchButton)
 
     this.playButton = new Button(
       this.game,
@@ -145,6 +161,7 @@ export default class extends Phaser.State {
           const newChar = this.text.text[this.charIndex - 1]
           if (!/\s/.test(newChar)) {
             this.sound.play()
+            this.sound._sound.playbackRate.value = this.soundPitch
             if ((/^[aeiouy]$/i).test(newChar)) {
               this.head.mouthOpen()
             } else {
