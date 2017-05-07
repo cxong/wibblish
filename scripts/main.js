@@ -19,10 +19,6 @@ export default class extends Phaser.State {
   create() {
     this.game.stage.backgroundColor = 0xcccccc
 
-    this.sounds = {
-      beep: this.game.add.audio('beep')
-    }
-
     this.groups = {
       bg: this.game.add.group(),
       head: this.game.add.group(),
@@ -39,6 +35,12 @@ export default class extends Phaser.State {
     this.headScales = [6, 3]
     this.headIndex = 0
     this.cycleHead()
+
+    this.sounds = ['beep', 'wib'].map((sound) => {
+      return this.game.add.audio(sound)
+    })
+    this.soundIndex = -1
+    this.cycleSound()
 
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
@@ -57,20 +59,29 @@ export default class extends Phaser.State {
 
     this.resetText()
 
+    var buttonX = frameMargin
     const bgButton = new Button(
       this.game,
-      frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
+      buttonX, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
       this.cycleBg, this)
     bgButton.label.tint = 0xdeeed6
     this.groups.ui.add(bgButton)
 
+    buttonX += bgButton.width + frameMargin
     const headButton = new Button(
       this.game,
-      frameMargin * 2 + bgButton.width, frameMargin, 'button', 'Cycle Head',
-      'alagard', 18,
+      buttonX, frameMargin, 'button', 'Cycle Head', 'alagard', 18,
       this.cycleHead, this)
     headButton.label.tint = 0xdeeed6
     this.groups.ui.add(headButton)
+
+    buttonX += headButton.width + frameMargin
+    const soundButton = new Button(
+      this.game,
+      buttonX, frameMargin, 'button', 'Cycle Sound', 'alagard', 18,
+      this.cycleSound, this)
+    soundButton.label.tint = 0xdeeed6
+    this.groups.ui.add(soundButton)
 
     this.playButton = new Button(
       this.game,
@@ -110,6 +121,11 @@ export default class extends Phaser.State {
     this.groups.head.add(this.head)
   }
 
+  cycleSound() {
+    this.soundIndex = (this.soundIndex + 1) % this.sounds.length
+    this.sound = this.sounds[this.soundIndex]
+  }
+
   resetText() {
     this.nextCharTimer = 0
     this.charIndex = 0
@@ -128,7 +144,7 @@ export default class extends Phaser.State {
           this.nextCharTimer = CHAR_FRAMES
           const newChar = this.text.text[this.charIndex - 1]
           if (!/\s/.test(newChar)) {
-            this.sounds.beep.play()
+            this.sound.play()
             if ((/^[aeiouy]$/i).test(newChar)) {
               this.head.mouthOpen()
             } else {

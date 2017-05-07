@@ -13,7 +13,7 @@ const assets = {
     'bg/urban_landscape'
   ].concat(headImages('monk')).concat(headImages('reticulan')),
   sounds: [
-    'beep'
+    'beep', 'wib'
   ],
   music: [
     // 'title', '1'
