@@ -6,6 +6,12 @@ import Head from './head'
 
 const CHAR_FRAMES = 5
 
+const yRatio = SCREEN_HEIGHT * 3 / 5
+const frameMargin = 10
+const frameWidth = SCREEN_WIDTH - frameMargin * 2
+const frameY = yRatio + frameMargin
+const frameHeight = SCREEN_HEIGHT - yRatio - frameMargin * 2
+
 export default class extends Phaser.State {
   preload() {
   }
@@ -17,28 +23,22 @@ export default class extends Phaser.State {
       beep: this.game.add.audio('beep')
     }
 
-    this.bgs = [
-      'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
-      'bg/urban_landscape']
-    this.bgIndex = 2
-
     this.groups = {
       bg: this.game.add.group(),
       head: this.game.add.group(),
       ui: this.game.add.group()
     }
 
+    this.bgs = [
+      'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
+      'bg/urban_landscape']
+    this.bgIndex = 2
     this.cycleBg()
 
-    const yRatio = SCREEN_HEIGHT * 3 / 5
-    const frameMargin = 10
-    const frameWidth = SCREEN_WIDTH - frameMargin * 2
-    const frameY = yRatio + frameMargin
-    const frameHeight = SCREEN_HEIGHT - yRatio - frameMargin * 2
-
-    this.head = new Head(
-      this.game, SCREEN_WIDTH / 2, frameY, 'heads/reticulan', 3)
-    this.groups.head.add(this.head)
+    this.heads = ['heads/monk', 'heads/reticulan']
+    this.headScales = [6, 3]
+    this.headIndex = 0
+    this.cycleHead()
 
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
@@ -57,12 +57,20 @@ export default class extends Phaser.State {
 
     this.resetText()
 
-    this.bgButton = new Button(
+    const bgButton = new Button(
       this.game,
       frameMargin, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
       this.cycleBg, this)
-    this.bgButton.label.tint = 0xdeeed6
-    this.groups.ui.add(this.bgButton)
+    bgButton.label.tint = 0xdeeed6
+    this.groups.ui.add(bgButton)
+
+    const headButton = new Button(
+      this.game,
+      frameMargin * 2 + bgButton.width, frameMargin, 'button', 'Cycle Head',
+      'alagard', 18,
+      this.cycleHead, this)
+    headButton.label.tint = 0xdeeed6
+    this.groups.ui.add(headButton)
 
     this.playButton = new Button(
       this.game,
@@ -93,6 +101,15 @@ export default class extends Phaser.State {
     this.groups.bg.add(this.bg)
   }
 
+  cycleHead() {
+    this.headIndex = (this.headIndex + 1) % this.heads.length
+    this.groups.head.removeAll(true)
+    this.head = new Head(
+      this.game, SCREEN_WIDTH / 2, frameY, this.heads[this.headIndex],
+      this.headScales[this.headIndex])
+    this.groups.head.add(this.head)
+  }
+
   resetText() {
     this.nextCharTimer = 0
     this.charIndex = 0
@@ -119,8 +136,6 @@ export default class extends Phaser.State {
             }
           }
         }
-      } else {
-        this.head.mouthClose()
       }
     } else {
       this.resetText()

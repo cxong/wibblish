@@ -1,14 +1,17 @@
 import Phaser from 'phaser'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 
+const headImages = (name) => {
+  return [
+    'heads/' + name, 'heads/' + name + '_eyelids', 'heads/' + name + '_mouth']
+}
 const assets = {
   spritesheets: [
   ],
   images: [
     'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
-    'bg/urban_landscape',
-    'heads/reticulan', 'heads/reticulan_eyelids', 'heads/reticulan_mouth'
-  ],
+    'bg/urban_landscape'
+  ].concat(headImages('monk')).concat(headImages('reticulan')),
   sounds: [
     'beep'
   ],
