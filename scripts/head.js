@@ -17,6 +17,10 @@ export default class extends Phaser.Sprite {
     this.addChild(this.eyelids)
     this.eyelids.bringToTop()
     this.eyesOpen()
+
+    // Blink on click
+    this.inputEnabled = true
+    this.events.onInputDown.add(this.eyesToggle, this)
   }
 
   mouthOpen() {
