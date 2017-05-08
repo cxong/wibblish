@@ -21,6 +21,7 @@ Gibberish speech generator toy
   - space: Space backgrounds by Rawdanitsu https://opengameart.org/content/space-backgrounds-1 CC0
   - urban_landscape: Urban Landscape by ansimuz https://opengameart.org/content/urban-landscape CC0
 - Heads:
+  - courtesan: JS Actors - Aeon Warriors by JosephSeraph https://opengameart.org/content/js-actors-aeon-warriors CC-BY 3.0
   - king: RPG portraits by Buch https://opengameart.org/content/rpg-portraits CC0
   - monk: RPG portraits by Buch https://opengameart.org/content/rpg-portraits CC0
   - reticulan: Modular Reticulan Portraits by surt https://opengameart.org/content/modular-reticulan-portraits CC-BY 3.0

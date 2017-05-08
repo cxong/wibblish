@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
+import Assets from './assets'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
+
 import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
@@ -32,9 +34,8 @@ export default class extends Phaser.State {
     this.bgIndex = 2
     this.cycleBg()
 
-    this.heads = ['heads/king', 'heads/monk', 'heads/reticulan']
-    this.headScales = [6, 6, 3]
-    this.headIndex = 1
+    this.heads = Assets.heads
+    this.headIndex = 2
     this.cycleHead()
 
     this.sounds = ['beep', 'wib'].map((sound) => {
@@ -132,8 +133,8 @@ export default class extends Phaser.State {
     this.headIndex = (this.headIndex + 1) % this.heads.length
     this.groups.head.removeAll(true)
     this.head = new Head(
-      this.game, SCREEN_WIDTH / 2, frameY, this.heads[this.headIndex],
-      this.headScales[this.headIndex])
+      this.game, SCREEN_WIDTH / 2, frameY, this.heads[this.headIndex][0],
+      this.heads[this.headIndex][1])
     this.groups.head.add(this.head)
   }
 

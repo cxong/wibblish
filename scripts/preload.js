@@ -1,34 +1,9 @@
 import Phaser from 'phaser'
+import Assets from './assets'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 
 const headImages = (name) => {
-  return [
-    'heads/' + name, 'heads/' + name + '_eyelids', 'heads/' + name + '_mouth']
-}
-const assets = {
-  spritesheets: [
-  ],
-  images: [
-    'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
-    'bg/urban_landscape'
-  ].concat(headImages('king'))
-  .concat(headImages('monk'))
-  .concat(headImages('reticulan')),
-  sounds: [
-    'beep', 'wib'
-  ],
-  music: [
-    // 'title', '1'
-  ],
-  bitmapFonts: [
-    'alagard'
-  ],
-  nineSlices: [
-    ['frame', 7, 10, 10, 7]
-  ],
-  nineSliceButtons: [
-    ['button', 9, 6, 6, 9]
-  ]
+  return [name, name + '_eyelids', name + '_mouth']
 }
 
 export default class extends Phaser.State {
@@ -47,28 +22,33 @@ export default class extends Phaser.State {
     this.load.setPreloadSprite(this.preloadBar)
 
     var basicGame = this
-    assets.spritesheets.map((s) => {
+    Assets.spritesheets.map((s) => {
       basicGame.game.load.spritesheet(
         s[0], 'images/' + s[0] + '.png', s[1], s[2])
     })
-    assets.images.map((i) => {
+    Assets.images.map((i) => {
       basicGame.game.load.image(i, 'images/' + i + '.png')
     })
-    assets.music.map((i) => {
+    Assets.heads.map((i) => {
+      headImages(i[0]).map((j) => {
+        basicGame.game.load.image(j, 'images/' + j + '.png')
+      })
+    })
+    Assets.music.map((i) => {
       basicGame.game.load.audio(i, 'music/' + i + '.ogg')
     })
-    assets.sounds.map((i) => {
+    Assets.sounds.map((i) => {
       basicGame.game.load.audio(i, 'sounds/' + i + '.ogg')
     })
-    assets.bitmapFonts.map((i) => {
+    Assets.bitmapFonts.map((i) => {
       basicGame.game.load.bitmapFont(
         i, 'images/' + i + '.png', 'images/' + i + '.xml')
     })
-    assets.nineSlices.map((s) => {
+    Assets.nineSlices.map((s) => {
       basicGame.game.load.nineSlice(
         s[0], 'images/' + s[0] + '.png', s[1], s[2], s[3], s[4])
     })
-    assets.nineSliceButtons.map((s) => {
+    Assets.nineSliceButtons.map((s) => {
       basicGame.game.load.nineSlice(
         s[0], 'images/' + s[0] + '.png', s[1], s[2], s[3], s[4])
       basicGame.game.load.nineSlice(
