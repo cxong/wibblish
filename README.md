@@ -24,5 +24,6 @@ Gibberish speech generator toy
   - courtesan: JS Actors - Aeon Warriors by JosephSeraph https://opengameart.org/content/js-actors-aeon-warriors CC-BY 3.0
   - king: RPG portraits by Buch https://opengameart.org/content/rpg-portraits CC0
   - monk: RPG portraits by Buch https://opengameart.org/content/rpg-portraits CC0
+  - ogre: 32x32 Fantasy portrait set by CobraLad https://opengameart.org/content/32x32-fantasy-portrait-set CC-BY 3.0
   - reticulan: Modular Reticulan Portraits by surt https://opengameart.org/content/modular-reticulan-portraits CC-BY 3.0
 - sounds/beep: GUI sounds collection by copyc4t https://opengameart.org/content/gui-sounds-collection CC-BY 3.0

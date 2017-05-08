@@ -7,7 +7,7 @@ const assets = {
   ],
   heads: [
     ['heads/courtesan', 4], ['heads/king', 6], ['heads/monk', 6],
-    ['heads/reticulan', 3]
+    ['heads/ogre', 5], ['heads/reticulan', 3]
   ],
   sounds: [
     'beep', 'wib'
