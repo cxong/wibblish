@@ -11,7 +11,9 @@ const assets = {
   images: [
     'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
     'bg/urban_landscape'
-  ].concat(headImages('monk')).concat(headImages('reticulan')),
+  ].concat(headImages('king'))
+  .concat(headImages('monk'))
+  .concat(headImages('reticulan')),
   sounds: [
     'beep', 'wib'
   ],

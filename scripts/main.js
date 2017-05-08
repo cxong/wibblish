@@ -32,9 +32,9 @@ export default class extends Phaser.State {
     this.bgIndex = 2
     this.cycleBg()
 
-    this.heads = ['heads/monk', 'heads/reticulan']
-    this.headScales = [6, 3]
-    this.headIndex = 0
+    this.heads = ['heads/king', 'heads/monk', 'heads/reticulan']
+    this.headScales = [6, 6, 3]
+    this.headIndex = 1
     this.cycleHead()
 
     this.sounds = ['beep', 'wib'].map((sound) => {
