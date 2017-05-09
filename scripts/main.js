@@ -35,7 +35,7 @@ export default class extends Phaser.State {
     this.cycleBg()
 
     this.heads = Assets.heads
-    this.headIndex = 2
+    this.headIndex = 3
     this.cycleHead()
 
     this.sounds = ['beep', 'wib'].map((sound) => {
@@ -43,6 +43,7 @@ export default class extends Phaser.State {
     })
     this.soundIndex = -1
     this.soundPitch = 1
+    this.soundPitchRange = 0
     this.cycleSound()
 
     const frame = this.game.add.nineSlice(
@@ -63,9 +64,10 @@ export default class extends Phaser.State {
     this.resetText()
 
     var buttonX = frameMargin
+    var buttonY = frameMargin
     const bgButton = new Button(
       this.game,
-      buttonX, frameMargin, 'button', 'Cycle BG', 'alagard', 18,
+      buttonX, buttonY, 'button', 'Cycle BG', 'alagard', 18,
       this.cycleBg, this)
     bgButton.label.tint = 0xdeeed6
     this.groups.ui.add(bgButton)
@@ -73,15 +75,16 @@ export default class extends Phaser.State {
     buttonX += bgButton.width + frameMargin
     const headButton = new Button(
       this.game,
-      buttonX, frameMargin, 'button', 'Cycle Head', 'alagard', 18,
+      buttonX, buttonY, 'button', 'Cycle Head', 'alagard', 18,
       this.cycleHead, this)
     headButton.label.tint = 0xdeeed6
     this.groups.ui.add(headButton)
 
-    buttonX += headButton.width + frameMargin
+    buttonX = frameMargin
+    buttonY += headButton.height + frameMargin
     const soundButton = new Button(
       this.game,
-      buttonX, frameMargin, 'button', 'Cycle Sound', 'alagard', 18,
+      buttonX, buttonY, 'button', 'Cycle Sound', 'alagard', 18,
       this.cycleSound, this)
     soundButton.label.tint = 0xdeeed6
     this.groups.ui.add(soundButton)
@@ -89,7 +92,7 @@ export default class extends Phaser.State {
     buttonX += soundButton.width + frameMargin
     const pitchButton = new SliderButton(
       this.game,
-      buttonX, frameMargin, 'button', 'Pitch: ', 'alagard', 18,
+      buttonX, buttonY, 'button', 'Pitch: ', 'alagard', 18,
       (button, d) => {
         this.soundPitch += d.x
         this.soundPitch -= d.y
@@ -99,6 +102,21 @@ export default class extends Phaser.State {
     )
     pitchButton.label.tint = 0xdeeed6
     this.groups.ui.add(pitchButton)
+
+    buttonX += pitchButton.width + frameMargin
+    const pitchRangeButton = new SliderButton(
+      this.game,
+      buttonX, buttonY, 'button', 'P. Range: ', 'alagard', 18,
+      (button, d) => {
+        this.soundPitchRange += d.x
+        this.soundPitchRange -= d.y
+        this.soundPitchRange =
+          Math.min(this.soundPitch * 2, Math.max(0, this.soundPitchRange))
+        button.setLabel(this.soundPitchRange)
+      }
+    )
+    pitchRangeButton.label.tint = 0xdeeed6
+    this.groups.ui.add(pitchRangeButton)
 
     this.playButton = new Button(
       this.game,
@@ -162,7 +180,8 @@ export default class extends Phaser.State {
           const newChar = this.text.text[this.charIndex - 1]
           if (!/\s/.test(newChar)) {
             this.sound.play()
-            this.sound._sound.playbackRate.value = this.soundPitch
+            this.sound._sound.playbackRate.value =
+              this.soundPitch + (0.5 - Math.random()) * this.soundPitchRange
             if ((/^[aeiouy]$/i).test(newChar)) {
               this.head.mouthOpen()
             } else {
