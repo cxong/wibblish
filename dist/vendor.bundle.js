@@ -149,12 +149,12 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 312);
+/******/ 	return __webpack_require__(__webpack_require__.s = 317);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 116:
+/***/ 117:
 /* unknown exports provided */
 /* all exports used */
 /*!**********************************************************!*\
@@ -347,161 +347,6 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-
-/***/ }),
-
-/***/ 118:
-/* unknown exports provided */
-/* all exports used */
-/*!********************************************************************!*\
-  !*** ./~/@orange-games/phaser-nineslice/build/phaser-nineslice.js ***!
-  \********************************************************************/
-/***/ (function(module, exports) {
-
-/*!
- * phaser-nineslice - version 2.0.0 
- * NineSlice plugin for Phaser.io!
- *
- * OrangeGames
- * Build at 19-01-2017
- * Released under MIT License 
- */
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var PhaserNineSlice;
-(function (PhaserNineSlice) {
-    var NineSlice = (function (_super) {
-        __extends(NineSlice, _super);
-        function NineSlice(game, x, y, key, frame, width, height, data) {
-            var _this = _super.call(this, game, x, y, key, frame) || this;
-            _this.baseTexture = _this.texture.baseTexture;
-            _this.baseFrame = _this.texture.frame;
-            if (frame !== null && !data) {
-                data = game.cache.getNineSlice(frame);
-            }
-            else if (!data) {
-                data = game.cache.getNineSlice(key);
-            }
-            if (undefined === data) {
-                return _this;
-            }
-            _this.topSize = data.top;
-            if (!data.left) {
-                _this.leftSize = _this.topSize;
-            }
-            else {
-                _this.leftSize = data.left;
-            }
-            if (!data.right) {
-                _this.rightSize = _this.leftSize;
-            }
-            else {
-                _this.rightSize = data.right;
-            }
-            if (!data.bottom) {
-                _this.bottomSize = _this.topSize;
-            }
-            else {
-                _this.bottomSize = data.bottom;
-            }
-            _this.loadTexture(new Phaser.RenderTexture(_this.game, _this.localWidth, _this.localHeight));
-            _this.resize(width, height);
-            return _this;
-        }
-        NineSlice.prototype.renderTexture = function () {
-            this.texture.resize(this.localWidth, this.localHeight, true);
-            var textureXs = [0, this.leftSize, this.baseFrame.width - this.rightSize, this.baseFrame.width];
-            var textureYs = [0, this.topSize, this.baseFrame.height - this.bottomSize, this.baseFrame.height];
-            var finalXs = [0, this.leftSize, this.localWidth - this.rightSize, this.localWidth];
-            var finalYs = [0, this.topSize, this.localHeight - this.bottomSize, this.localHeight];
-            for (var yi = 0; yi < 3; yi++) {
-                for (var xi = 0; xi < 3; xi++) {
-                    var s = this.createTexturePart(textureXs[xi], textureYs[yi], textureXs[xi + 1] - textureXs[xi], textureYs[yi + 1] - textureYs[yi]);
-                    s.width = finalXs[xi + 1] - finalXs[xi];
-                    s.height = finalYs[yi + 1] - finalYs[yi];
-                    this.texture.renderXY(s, finalXs[xi], finalYs[yi]);
-                }
-            }
-        };
-        NineSlice.prototype.resize = function (width, height) {
-            this.localWidth = width;
-            this.localHeight = height;
-            this.renderTexture();
-        };
-        NineSlice.prototype.createTexturePart = function (x, y, width, height) {
-            var frame = new PIXI.Rectangle(this.baseFrame.x + this.texture.frame.x + x, this.baseFrame.y + this.texture.frame.y + y, Math.max(width, 1), Math.max(height, 1));
-            return new Phaser.Sprite(this.game, 0, 0, new PIXI.Texture(this.baseTexture, frame));
-        };
-        return NineSlice;
-    }(Phaser.Sprite));
-    PhaserNineSlice.NineSlice = NineSlice;
-})(PhaserNineSlice || (PhaserNineSlice = {}));
-var PhaserNineSlice;
-(function (PhaserNineSlice) {
-    var Plugin = (function (_super) {
-        __extends(Plugin, _super);
-        function Plugin(game, parent) {
-            var _this = _super.call(this, game, parent) || this;
-            _this.addNineSliceCache();
-            _this.addNineSliceFactory();
-            _this.addNineSliceLoader();
-            return _this;
-        }
-        Plugin.prototype.addNineSliceLoader = function () {
-            Phaser.Loader.prototype.nineSlice = function (key, url, top, left, right, bottom) {
-                var cacheData = {
-                    top: top
-                };
-                if (left) {
-                    cacheData.left = left;
-                }
-                if (right) {
-                    cacheData.right = right;
-                }
-                if (bottom) {
-                    cacheData.bottom = bottom;
-                }
-                this.addToFileList('image', key, url);
-                this.game.cache.addNineSlice(key, cacheData);
-            };
-        };
-        Plugin.prototype.addNineSliceFactory = function () {
-            Phaser.GameObjectFactory.prototype.nineSlice = function (x, y, key, frame, width, height, group) {
-                if (group === undefined) {
-                    group = this.world;
-                }
-                var nineSliceObject = new PhaserNineSlice.NineSlice(this.game, x, y, key, frame, width, height);
-                return group.add(nineSliceObject);
-            };
-            Phaser.GameObjectCreator.prototype.nineSlice = function (x, y, key, frame, width, height) {
-                return new PhaserNineSlice.NineSlice(this.game, x, y, key, frame, width, height);
-            };
-        };
-        Plugin.prototype.addNineSliceCache = function () {
-            Phaser.Cache.prototype.nineSlice = {};
-            Phaser.Cache.prototype.addNineSlice = function (key, data) {
-                this.nineSlice[key] = data;
-            };
-            Phaser.Cache.prototype.getNineSlice = function (key) {
-                var data = this.nineSlice[key];
-                if (undefined === data) {
-                    console.warn('Phaser.Cache.getNineSlice: Key "' + key + '" not found in Cache.');
-                }
-                return data;
-            };
-        };
-        return Plugin;
-    }(Phaser.Plugin));
-    PhaserNineSlice.Plugin = Plugin;
-})(PhaserNineSlice || (PhaserNineSlice = {}));
-//# sourceMappingURL=phaser-nineslice.js.map
-
-/*** EXPORTS FROM exports-loader ***/
-exports["PhaserNineSlice"] = (PhaserNineSlice);
 
 /***/ }),
 
@@ -98021,7 +97866,7 @@ PIXI.TextureSilentFail = true;
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 116)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 117)))
 
 /***/ }),
 
@@ -105567,24 +105412,7 @@ PIXI.TextureUvs = function()
 
 /***/ }),
 
-/***/ 312:
-/* unknown exports provided */
-/* all exports used */
-/*!***********************************************************!*\
-  !*** multi pixi p2 phaser webfontloader phaser-nineslice ***!
-  \***********************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! pixi */119);
-__webpack_require__(/*! p2 */120);
-__webpack_require__(/*! phaser */45);
-__webpack_require__(/*! webfontloader */121);
-module.exports = __webpack_require__(/*! phaser-nineslice */118);
-
-
-/***/ }),
-
-/***/ 45:
+/***/ 31:
 /* unknown exports provided */
 /* all exports used */
 /*!**************************************************!*\
@@ -105594,6 +105422,23 @@ module.exports = __webpack_require__(/*! phaser-nineslice */118);
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(/*! -!./phaser-split.js */ 306);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 49)))
+
+/***/ }),
+
+/***/ 317:
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************************************!*\
+  !*** multi pixi p2 phaser webfontloader phaser-nineslice ***!
+  \***********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! pixi */119);
+__webpack_require__(/*! p2 */120);
+__webpack_require__(/*! phaser */31);
+__webpack_require__(/*! webfontloader */121);
+module.exports = __webpack_require__(/*! phaser-nineslice */88);
+
 
 /***/ }),
 
@@ -105627,6 +105472,161 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ 88:
+/* unknown exports provided */
+/* all exports used */
+/*!********************************************************************!*\
+  !*** ./~/@orange-games/phaser-nineslice/build/phaser-nineslice.js ***!
+  \********************************************************************/
+/***/ (function(module, exports) {
+
+/*!
+ * phaser-nineslice - version 2.0.0 
+ * NineSlice plugin for Phaser.io!
+ *
+ * OrangeGames
+ * Build at 19-01-2017
+ * Released under MIT License 
+ */
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var PhaserNineSlice;
+(function (PhaserNineSlice) {
+    var NineSlice = (function (_super) {
+        __extends(NineSlice, _super);
+        function NineSlice(game, x, y, key, frame, width, height, data) {
+            var _this = _super.call(this, game, x, y, key, frame) || this;
+            _this.baseTexture = _this.texture.baseTexture;
+            _this.baseFrame = _this.texture.frame;
+            if (frame !== null && !data) {
+                data = game.cache.getNineSlice(frame);
+            }
+            else if (!data) {
+                data = game.cache.getNineSlice(key);
+            }
+            if (undefined === data) {
+                return _this;
+            }
+            _this.topSize = data.top;
+            if (!data.left) {
+                _this.leftSize = _this.topSize;
+            }
+            else {
+                _this.leftSize = data.left;
+            }
+            if (!data.right) {
+                _this.rightSize = _this.leftSize;
+            }
+            else {
+                _this.rightSize = data.right;
+            }
+            if (!data.bottom) {
+                _this.bottomSize = _this.topSize;
+            }
+            else {
+                _this.bottomSize = data.bottom;
+            }
+            _this.loadTexture(new Phaser.RenderTexture(_this.game, _this.localWidth, _this.localHeight));
+            _this.resize(width, height);
+            return _this;
+        }
+        NineSlice.prototype.renderTexture = function () {
+            this.texture.resize(this.localWidth, this.localHeight, true);
+            var textureXs = [0, this.leftSize, this.baseFrame.width - this.rightSize, this.baseFrame.width];
+            var textureYs = [0, this.topSize, this.baseFrame.height - this.bottomSize, this.baseFrame.height];
+            var finalXs = [0, this.leftSize, this.localWidth - this.rightSize, this.localWidth];
+            var finalYs = [0, this.topSize, this.localHeight - this.bottomSize, this.localHeight];
+            for (var yi = 0; yi < 3; yi++) {
+                for (var xi = 0; xi < 3; xi++) {
+                    var s = this.createTexturePart(textureXs[xi], textureYs[yi], textureXs[xi + 1] - textureXs[xi], textureYs[yi + 1] - textureYs[yi]);
+                    s.width = finalXs[xi + 1] - finalXs[xi];
+                    s.height = finalYs[yi + 1] - finalYs[yi];
+                    this.texture.renderXY(s, finalXs[xi], finalYs[yi]);
+                }
+            }
+        };
+        NineSlice.prototype.resize = function (width, height) {
+            this.localWidth = width;
+            this.localHeight = height;
+            this.renderTexture();
+        };
+        NineSlice.prototype.createTexturePart = function (x, y, width, height) {
+            var frame = new PIXI.Rectangle(this.baseFrame.x + this.texture.frame.x + x, this.baseFrame.y + this.texture.frame.y + y, Math.max(width, 1), Math.max(height, 1));
+            return new Phaser.Sprite(this.game, 0, 0, new PIXI.Texture(this.baseTexture, frame));
+        };
+        return NineSlice;
+    }(Phaser.Sprite));
+    PhaserNineSlice.NineSlice = NineSlice;
+})(PhaserNineSlice || (PhaserNineSlice = {}));
+var PhaserNineSlice;
+(function (PhaserNineSlice) {
+    var Plugin = (function (_super) {
+        __extends(Plugin, _super);
+        function Plugin(game, parent) {
+            var _this = _super.call(this, game, parent) || this;
+            _this.addNineSliceCache();
+            _this.addNineSliceFactory();
+            _this.addNineSliceLoader();
+            return _this;
+        }
+        Plugin.prototype.addNineSliceLoader = function () {
+            Phaser.Loader.prototype.nineSlice = function (key, url, top, left, right, bottom) {
+                var cacheData = {
+                    top: top
+                };
+                if (left) {
+                    cacheData.left = left;
+                }
+                if (right) {
+                    cacheData.right = right;
+                }
+                if (bottom) {
+                    cacheData.bottom = bottom;
+                }
+                this.addToFileList('image', key, url);
+                this.game.cache.addNineSlice(key, cacheData);
+            };
+        };
+        Plugin.prototype.addNineSliceFactory = function () {
+            Phaser.GameObjectFactory.prototype.nineSlice = function (x, y, key, frame, width, height, group) {
+                if (group === undefined) {
+                    group = this.world;
+                }
+                var nineSliceObject = new PhaserNineSlice.NineSlice(this.game, x, y, key, frame, width, height);
+                return group.add(nineSliceObject);
+            };
+            Phaser.GameObjectCreator.prototype.nineSlice = function (x, y, key, frame, width, height) {
+                return new PhaserNineSlice.NineSlice(this.game, x, y, key, frame, width, height);
+            };
+        };
+        Plugin.prototype.addNineSliceCache = function () {
+            Phaser.Cache.prototype.nineSlice = {};
+            Phaser.Cache.prototype.addNineSlice = function (key, data) {
+                this.nineSlice[key] = data;
+            };
+            Phaser.Cache.prototype.getNineSlice = function (key) {
+                var data = this.nineSlice[key];
+                if (undefined === data) {
+                    console.warn('Phaser.Cache.getNineSlice: Key "' + key + '" not found in Cache.');
+                }
+                return data;
+            };
+        };
+        return Plugin;
+    }(Phaser.Plugin));
+    PhaserNineSlice.Plugin = Plugin;
+})(PhaserNineSlice || (PhaserNineSlice = {}));
+//# sourceMappingURL=phaser-nineslice.js.map
+
+/*** EXPORTS FROM exports-loader ***/
+exports["PhaserNineSlice"] = (PhaserNineSlice);
 
 /***/ })
 
