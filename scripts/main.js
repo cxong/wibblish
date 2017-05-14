@@ -6,6 +6,7 @@ import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
 import SliderButton from './slider_button'
+import presets from './presets'
 
 const CHAR_FRAMES = 5
 
@@ -27,6 +28,8 @@ export default class extends Phaser.State {
       head: this.game.add.group(),
       ui: this.game.add.group()
     }
+
+    this.presetIndex = 0
 
     this.bgs = [
       'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
@@ -65,6 +68,15 @@ export default class extends Phaser.State {
 
     var buttonX = frameMargin
     var buttonY = frameMargin
+
+    const presetButton = new Button(
+      this.game,
+      buttonX, buttonY, 'button', 'Cycle Preset', 'alagard', 18,
+      this.cyclePreset, this)
+    presetButton.label.tint = 0xdeeed6
+    this.groups.ui.add(presetButton)
+
+    buttonX += presetButton.width + frameMargin
     const bgButton = new Button(
       this.game,
       buttonX, buttonY, 'button', 'Cycle BG', 'alagard', 18,
@@ -137,6 +149,33 @@ export default class extends Phaser.State {
       }, this)
     this.generateButton.label.tint = 0xdeeed6
     this.groups.ui.add(this.generateButton)
+  }
+
+  cyclePreset() {
+    this.presetIndex = (this.presetIndex + 1) % presets.length
+
+    const findPreset = (array, matchFunc, index, cycleFunc) => {
+      for (var i = 0; i < array.length; i++) {
+        if (matchFunc(array[i])) {
+          this[index] = i - 1
+          this[cycleFunc]()
+          break
+        }
+      }
+    }
+    findPreset(
+      this.bgs, (bg) => { return bg === presets[this.presetIndex].bg },
+      'bgIndex', 'cycleBg')
+    findPreset(
+      this.heads,
+      (head) => { return head[0] === presets[this.presetIndex].head },
+      'headIndex', 'cycleHead')
+    findPreset(
+      this.sounds,
+      (sound) => { return sound.key === presets[this.presetIndex].sound },
+      'soundIndex', 'cycleSound')
+    this.soundPitch = presets[this.presetIndex].soundPitch
+    this.soundPitchRange = presets[this.presetIndex].soundPitchRange
   }
 
   cycleBg() {
