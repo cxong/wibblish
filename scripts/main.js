@@ -6,7 +6,7 @@ import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
 import SliderButton from './slider_button'
-import presets from './presets'
+import { bgs, presets } from './presets'
 
 const CHAR_FRAMES = 5
 
@@ -30,12 +30,6 @@ export default class extends Phaser.State {
     }
 
     this.presetIndex = 0
-
-    this.bgs = [
-      'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
-      'bg/urban_landscape']
-    this.bgIndex = 2
-    this.cycleBg()
 
     this.heads = Assets.heads
     this.headIndex = 3
@@ -77,14 +71,6 @@ export default class extends Phaser.State {
     this.groups.ui.add(presetButton)
 
     buttonX += presetButton.width + frameMargin
-    const bgButton = new Button(
-      this.game,
-      buttonX, buttonY, 'button', 'Cycle BG', 'alagard', 18,
-      this.cycleBg, this)
-    bgButton.label.tint = 0xdeeed6
-    this.groups.ui.add(bgButton)
-
-    buttonX += bgButton.width + frameMargin
     const headButton = new Button(
       this.game,
       buttonX, buttonY, 'button', 'Cycle Head', 'alagard', 18,
@@ -164,9 +150,6 @@ export default class extends Phaser.State {
       }
     }
     findPreset(
-      this.bgs, (bg) => { return bg === presets[this.presetIndex].bg },
-      'bgIndex', 'cycleBg')
-    findPreset(
       this.heads,
       (head) => { return head[0] === presets[this.presetIndex].head },
       'headIndex', 'cycleHead')
@@ -176,14 +159,6 @@ export default class extends Phaser.State {
       'soundIndex', 'cycleSound')
     this.soundPitch = presets[this.presetIndex].soundPitch
     this.soundPitchRange = presets[this.presetIndex].soundPitchRange
-  }
-
-  cycleBg() {
-    this.bgIndex = (this.bgIndex + 1) % this.bgs.length
-    this.groups.bg.removeAll(true)
-    this.bg = this.game.add.image(0, 0, this.bgs[this.bgIndex])
-    this.bg.scale.setTo(2)
-    this.groups.bg.add(this.bg)
   }
 
   cycleHead() {
@@ -231,6 +206,14 @@ export default class extends Phaser.State {
       }
     } else {
       this.resetText()
+    }
+
+    const bg = document.getElementById('bg').value
+    if (!this.bg || bg !== this.bg.key) {
+      this.groups.bg.removeAll(true)
+      this.bg = this.game.add.image(0, 0, bg)
+      this.bg.scale.setTo(2)
+      this.groups.bg.add(this.bg)
     }
   }
 
