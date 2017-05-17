@@ -30,6 +30,7 @@
     "webpack": "^2.2.0"
   },
   "dependencies": {
+    "materialize-css": "^0.98.2",
     "phaser-ce": "^2.7.7",
     "webfontloader": "^1.6.27"
   }
