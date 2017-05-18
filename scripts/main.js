@@ -6,7 +6,7 @@ import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
 import SliderButton from './slider_button'
-import { presets, bgs } from './presets'
+import { presets, bgs, sounds } from './presets'
 
 const CHAR_FRAMES = 5
 
@@ -31,13 +31,8 @@ export default class extends Phaser.State {
 
     this.presetIndex = 0
 
-    this.sounds = ['beep', 'wib'].map((sound) => {
-      return this.game.add.audio(sound)
-    })
-    this.soundIndex = -1
     this.soundPitch = 1
     this.soundPitchRange = 0
-    this.cycleSound()
 
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
@@ -68,14 +63,6 @@ export default class extends Phaser.State {
 
     buttonX = frameMargin
     buttonY += presetButton.height + frameMargin
-    const soundButton = new Button(
-      this.game,
-      buttonX, buttonY, 'button', 'Cycle Sound', 'alagard', 18,
-      this.cycleSound, this)
-    soundButton.label.tint = 0xdeeed6
-    this.groups.ui.add(soundButton)
-
-    buttonX += soundButton.width + frameMargin
     const pitchButton = new SliderButton(
       this.game,
       buttonX, buttonY, 'button', 'Pitch: ', 'alagard', 18,
@@ -127,27 +114,8 @@ export default class extends Phaser.State {
 
   cyclePreset() {
     this.presetIndex = (this.presetIndex + 1) % presets.length
-
-    const findPreset = (array, matchFunc, index, cycleFunc) => {
-      for (var i = 0; i < array.length; i++) {
-        if (matchFunc(array[i])) {
-          this[index] = i - 1
-          this[cycleFunc]()
-          break
-        }
-      }
-    }
-    findPreset(
-      this.sounds,
-      (sound) => { return sound.key === presets[this.presetIndex].sound },
-      'soundIndex', 'cycleSound')
     this.soundPitch = presets[this.presetIndex].soundPitch
     this.soundPitchRange = presets[this.presetIndex].soundPitchRange
-  }
-
-  cycleSound() {
-    this.soundIndex = (this.soundIndex + 1) % this.sounds.length
-    this.sound = this.sounds[this.soundIndex]
   }
 
   resetText() {
@@ -157,29 +125,36 @@ export default class extends Phaser.State {
   }
 
   update() {
-    const updateOption = (id, options, objKey, getKey, group, addFunc) => {
+    const updateOption = (id, options, objKey, getKey, addFunc) => {
       const index = document.getElementById(id).value
       const option = options[index]
       const key = getKey(option)
       if (!this[objKey] || key !== this[objKey].key) {
-        group.removeAll(true)
         this[objKey] = addFunc(option)
-        group.add(this[objKey])
       }
     }
     updateOption(
-      'bg', bgs, 'bg', (option) => { return option }, this.groups.bg,
+      'bg', bgs, 'bg', (option) => { return option },
       (option) => {
+        this.groups.bg.removeAll(true)
         const bg = this.game.add.image(0, 0, option)
         bg.scale.setTo(2)
+        this.groups.bg.add(bg)
         return bg
       })
     updateOption(
       'head', Assets.heads, 'head', (option) => { return option[0] },
-      this.groups.head,
       (option) => {
-        return new Head(
+        this.groups.head.removeAll(true)
+        const head = new Head(
           this.game, SCREEN_WIDTH / 2, frameY, option[0], option[1])
+        this.groups.head.add(head)
+        return head
+      })
+    updateOption(
+      'sound', sounds, 'sound', (option) => { return option[0] },
+      (option) => {
+        return this.game.add.audio(option)
       })
 
     const text = document.getElementById('speech').value

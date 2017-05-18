@@ -3,7 +3,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import BootState from './boot'
 import PreloadState from './preload'
 import GameState from './main'
-import { presets, bgs } from './presets'
+import { bgs, sounds } from './presets'
 import assets from './assets'
 
 const dropdowns = document.getElementById('dropdowns')
@@ -28,6 +28,7 @@ function makeDropdown(labelInner, selectId, elements) {
 }
 makeDropdown('Background', 'bg', bgs)
 makeDropdown('Head', 'head', assets.heads.map((head) => { return head[0] }))
+makeDropdown('Sound', 'sound', sounds.map((sound) => { return sound }))
 
 class Game extends Phaser.Game {
   constructor() {

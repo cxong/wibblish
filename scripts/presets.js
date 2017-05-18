@@ -2,6 +2,7 @@ const bgs = [
   'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
   'bg/urban_landscape'
 ]
+const sounds = ['beep', 'wib']
 
 class Preset {
   constructor(name, bg, head, sound, soundPitch, soundPitchRange) {
@@ -19,5 +20,5 @@ const presets = [
   new Preset('king', 'bg/hazy_hills', 'heads/king', 'wib', 0.3, 0.01)
 ]
 export {
-  presets, bgs
+  presets, bgs, sounds
 }
