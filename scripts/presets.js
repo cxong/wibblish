@@ -19,5 +19,5 @@ const presets = [
   new Preset('king', 'bg/hazy_hills', 'heads/king', 'wib', 0.3, 0.01)
 ]
 export {
-  bgs, presets
+  presets, bgs
 }

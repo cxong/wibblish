@@ -3,25 +3,31 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import BootState from './boot'
 import PreloadState from './preload'
 import GameState from './main'
-import { bgs } from './presets'
+import { presets, bgs } from './presets'
+import assets from './assets'
 
 const dropdowns = document.getElementById('dropdowns')
 
-const outer = document.createElement('div')
-const label = document.createElement('label')
-label.innerHTML = 'Background'
-outer.appendChild(label)
-const select = document.createElement('select')
-select.setAttribute('id', 'bg')
-select.classList.add('browser-default')
-for (let bg of bgs) {
-  const option = document.createElement('option')
-  option.setAttribute('value', bg)
-  option.innerHTML = bg
-  select.appendChild(option)
+function makeDropdown(labelInner, selectId, elements) {
+  const outer = document.createElement('div')
+  const label = document.createElement('label')
+  label.innerHTML = labelInner
+  outer.appendChild(label)
+  const select = document.createElement('select')
+  select.setAttribute('id', selectId)
+  select.classList.add('browser-default')
+  for (var i = 0; i < elements.length; i++) {
+    const element = elements[i]
+    const option = document.createElement('option')
+    option.setAttribute('value', i)
+    option.innerHTML = element
+    select.appendChild(option)
+  }
+  outer.appendChild(select)
+  dropdowns.appendChild(outer)
 }
-outer.appendChild(select)
-dropdowns.appendChild(outer)
+makeDropdown('Background', 'bg', bgs)
+makeDropdown('Head', 'head', assets.heads.map((head) => { return head[0] }))
 
 class Game extends Phaser.Game {
   constructor() {
