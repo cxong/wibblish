@@ -31,7 +31,6 @@ export default class extends Phaser.State {
 
     this.presetIndex = 0
 
-    this.soundPitch = 1
     this.soundPitchRange = 0
 
     const frame = this.game.add.nineSlice(
@@ -63,28 +62,12 @@ export default class extends Phaser.State {
 
     buttonX = frameMargin
     buttonY += presetButton.height + frameMargin
-    const pitchButton = new SliderButton(
-      this.game,
-      buttonX, buttonY, 'button', 'Pitch: ', 'alagard', 18,
-      (button, d) => {
-        this.soundPitch += d.x
-        this.soundPitch -= d.y
-        this.soundPitch = Math.min(8, Math.max(0.1, this.soundPitch))
-        button.setLabel(this.soundPitch)
-      }
-    )
-    pitchButton.label.tint = 0xdeeed6
-    this.groups.ui.add(pitchButton)
-
-    buttonX += pitchButton.width + frameMargin
     const pitchRangeButton = new SliderButton(
       this.game,
       buttonX, buttonY, 'button', 'P. Range: ', 'alagard', 18,
       (button, d) => {
         this.soundPitchRange += d.x
         this.soundPitchRange -= d.y
-        this.soundPitchRange =
-          Math.min(this.soundPitch * 2, Math.max(0, this.soundPitchRange))
         button.setLabel(this.soundPitchRange)
       }
     )
@@ -114,7 +97,6 @@ export default class extends Phaser.State {
 
   cyclePreset() {
     this.presetIndex = (this.presetIndex + 1) % presets.length
-    this.soundPitch = presets[this.presetIndex].soundPitch
     this.soundPitchRange = presets[this.presetIndex].soundPitchRange
   }
 
@@ -169,8 +151,14 @@ export default class extends Phaser.State {
           const newChar = this.text.text[this.charIndex - 1]
           if (!/\s/.test(newChar)) {
             this.sound.play()
-            this.sound._sound.playbackRate.value =
-              this.soundPitch + (0.5 - Math.random()) * this.soundPitchRange
+            let pitch = parseFloat(document.getElementById('pitch').value)
+            pitch += (0.5 - Math.random()) * this.soundPitchRange
+            if (pitch < 0.1) {
+              pitch = 0.1
+            } else if (pitch > 8) {
+              pitch = 8
+            }
+            this.sound._sound.playbackRate.value = pitch
             if ((/^[aeiouy]$/i).test(newChar)) {
               this.head.mouthOpen()
             } else {
