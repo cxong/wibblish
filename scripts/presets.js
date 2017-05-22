@@ -5,8 +5,8 @@ const bgs = [
 const sounds = ['beep', 'wib']
 
 class Preset {
-  constructor(name, bg, head, sound, soundPitch, soundPitchRange) {
-    this.name = name
+  constructor(key, bg, head, sound, soundPitch, soundPitchRange) {
+    this.key = key
     this.bg = bg
     this.head = head
     this.sound = sound

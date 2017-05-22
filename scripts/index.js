@@ -3,7 +3,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import BootState from './boot'
 import PreloadState from './preload'
 import GameState from './main'
-import { bgs, sounds } from './presets'
+import { presets, bgs, sounds } from './presets'
 import assets from './assets'
 
 const dropdowns = document.getElementById('dropdowns')
@@ -26,6 +26,9 @@ function makeDropdown(labelInner, selectId, elements) {
   outer.appendChild(select)
   dropdowns.appendChild(outer)
 }
+makeDropdown('Preset', 'preset', presets.map((preset) => {
+  return preset.key
+}))
 makeDropdown('Background', 'bg', bgs)
 makeDropdown('Head', 'head', assets.heads.map((head) => { return head[0] }))
 makeDropdown('Sound', 'sound', sounds.map((sound) => { return sound }))

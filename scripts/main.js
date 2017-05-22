@@ -5,7 +5,6 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from './graphics'
 import Button from './button'
 import Generator from './generator/main'
 import Head from './head'
-import SliderButton from './slider_button'
 import { presets, bgs, sounds } from './presets'
 
 const CHAR_FRAMES = 5
@@ -29,8 +28,6 @@ export default class extends Phaser.State {
       ui: this.game.add.group()
     }
 
-    this.presetIndex = 0
-
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
       frameWidth / 2, frameHeight / 2)
@@ -47,16 +44,6 @@ export default class extends Phaser.State {
     this.groups.ui.add(this.text)
 
     this.resetText()
-
-    var buttonX = frameMargin
-    var buttonY = frameMargin
-
-    const presetButton = new Button(
-      this.game,
-      buttonX, buttonY, 'button', 'Cycle Preset', 'alagard', 18,
-      this.cyclePreset, this)
-    presetButton.label.tint = 0xdeeed6
-    this.groups.ui.add(presetButton)
 
     this.playButton = new Button(
       this.game,
@@ -99,6 +86,18 @@ export default class extends Phaser.State {
       }
     }
     updateOption(
+      'preset', presets, 'preset', (option) => { return option.key },
+      (option) => {
+        document.getElementById('bg').value = bgs.indexOf(option.bg)
+        document.getElementById('head').value = Assets.heads.findIndex((head) => {
+          return head[0] === option.head
+        })
+        document.getElementById('sound').value = Assets.sounds.indexOf(option.sound)
+        document.getElementById('pitch').value = option.soundPitch
+        document.getElementById('pitchRange').value = option.soundPitchRange
+        return option
+      })
+    updateOption(
       'bg', bgs, 'bg', (option) => { return option },
       (option) => {
         this.groups.bg.removeAll(true)
@@ -117,7 +116,7 @@ export default class extends Phaser.State {
         return head
       })
     updateOption(
-      'sound', sounds, 'sound', (option) => { return option[0] },
+      'sound', sounds, 'sound', (option) => { return option },
       (option) => {
         return this.game.add.audio(option)
       })
