@@ -31,8 +31,6 @@ export default class extends Phaser.State {
 
     this.presetIndex = 0
 
-    this.soundPitchRange = 0
-
     const frame = this.game.add.nineSlice(
       frameMargin, frameY, 'frame', null,
       frameWidth / 2, frameHeight / 2)
@@ -60,20 +58,6 @@ export default class extends Phaser.State {
     presetButton.label.tint = 0xdeeed6
     this.groups.ui.add(presetButton)
 
-    buttonX = frameMargin
-    buttonY += presetButton.height + frameMargin
-    const pitchRangeButton = new SliderButton(
-      this.game,
-      buttonX, buttonY, 'button', 'P. Range: ', 'alagard', 18,
-      (button, d) => {
-        this.soundPitchRange += d.x
-        this.soundPitchRange -= d.y
-        button.setLabel(this.soundPitchRange)
-      }
-    )
-    pitchRangeButton.label.tint = 0xdeeed6
-    this.groups.ui.add(pitchRangeButton)
-
     this.playButton = new Button(
       this.game,
       10, SCREEN_HEIGHT / 2, 'button', 'Say!', 'alagard', 32,
@@ -97,7 +81,6 @@ export default class extends Phaser.State {
 
   cyclePreset() {
     this.presetIndex = (this.presetIndex + 1) % presets.length
-    this.soundPitchRange = presets[this.presetIndex].soundPitchRange
   }
 
   resetText() {
@@ -152,13 +135,16 @@ export default class extends Phaser.State {
           if (!/\s/.test(newChar)) {
             this.sound.play()
             let pitch = parseFloat(document.getElementById('pitch').value)
-            pitch += (0.5 - Math.random()) * this.soundPitchRange
+            const pitchRange = parseFloat(document.getElementById('pitchRange').value)
+            pitch += Math.random() * pitchRange
             if (pitch < 0.1) {
               pitch = 0.1
             } else if (pitch > 8) {
               pitch = 8
             }
-            this.sound._sound.playbackRate.value = pitch
+            if (this.sound._sound) {
+              this.sound._sound.playbackRate.value = pitch
+            }
             if ((/^[aeiouy]$/i).test(newChar)) {
               this.head.mouthOpen()
             } else {
