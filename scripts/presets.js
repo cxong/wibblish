@@ -1,5 +1,5 @@
 const bgs = [
-  'bg/country_side', 'bg/hazy_hills', 'bg/sky', 'bg/space',
+  'bg/country_side', 'bg/hazy_hills', 'bg/palace', 'bg/sky', 'bg/space',
   'bg/urban_landscape'
 ]
 const sounds = ['beep', 'wib']
@@ -17,7 +17,8 @@ class Preset {
 
 const presets = [
   new Preset('alien', 'bg/space', 'heads/reticulan', 'beep', 1, 0),
-  new Preset('king', 'bg/hazy_hills', 'heads/king', 'wib', 0.3, 0.01)
+  new Preset('king', 'bg/hazy_hills', 'heads/king', 'wib', 0.3, 0.01),
+  new Preset('courtesan', 'bg/palace', 'heads/courtesan', 'wib', 1.2, 0.2)
 ]
 export {
   presets, bgs, sounds
