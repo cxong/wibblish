@@ -27,4 +27,6 @@ Gibberish speech generator toy
   - monk: RPG portraits by Buch https://opengameart.org/content/rpg-portraits CC0
   - ogre: 32x32 Fantasy portrait set by CobraLad https://opengameart.org/content/32x32-fantasy-portrait-set CC-BY 3.0
   - reticulan: Modular Reticulan Portraits by surt https://opengameart.org/content/modular-reticulan-portraits CC-BY 3.0
-- sounds/beep: GUI sounds collection by copyc4t https://opengameart.org/content/gui-sounds-collection CC-BY 3.0
+- Sounds:
+  - beep: GUI sounds collection by copyc4t https://opengameart.org/content/gui-sounds-collection CC-BY 3.0
+  - ugh: Voice Ugh by qubodup http://freesound.org/people/qubodup/sounds/239140/ CC-BY 3.0

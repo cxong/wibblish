@@ -10,7 +10,7 @@ const assets = {
     ['heads/ogre', 5], ['heads/reticulan', 3]
   ],
   sounds: [
-    'beep', 'wib'
+    'beep', 'ugh', 'wib'
   ],
   music: [
     // 'title', '1'
