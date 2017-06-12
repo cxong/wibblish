@@ -1,5 +1,6 @@
 const bgs = [
-  'bg/country_side', 'bg/hazy_hills', 'bg/palace', 'bg/sky', 'bg/space',
+  'bg/country_side', 'bg/hazy_hills', 'bg/palace', 'bg/school', 'bg/sky',
+  'bg/space',
   'bg/urban_landscape'
 ]
 const sounds = ['beep', 'ugh', 'wib']
