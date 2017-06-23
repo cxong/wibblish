@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -39,7 +40,10 @@ module.exports = {
       server: {
         baseDir: ['./', './build']
       }
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'node_modules/materialize-css/dist' }
+    ])
   ],
   module: {
     rules: [
