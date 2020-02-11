@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "materialize-css": "^0.98.2",
-    "phaser-ce": "^2.7.7",
+    "phaser-ce": "^2.14.0",
     "webfontloader": "^1.6.27"
   }
 }

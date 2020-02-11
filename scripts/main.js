@@ -7,7 +7,7 @@ import Generator from './generator/main'
 import Head from './head'
 import { presets, bgs, sounds } from './presets'
 
-const CHAR_FRAMES = 5
+const CHAR_FRAMES = 3
 
 const yRatio = SCREEN_HEIGHT * 3 / 5
 const frameMargin = 10
