@@ -3,8 +3,8 @@ Gibberish speech generator toy
 
 ## Getting started
 
-    npm install
-    npm run dev
+    yarn install
+    yarn run dev
 
 ## Licenses
 
