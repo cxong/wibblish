@@ -10,9 +10,7 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    this.game.load.spritesheet(
-      'merc', 'images/merc.png', 32, 32
-    )
+    this.game.load.image('qubodup-small-glad', 'images/qubodup-small-glad.png')
     this.game.add.plugin(PhaserNineSlice.Plugin)
   }
 

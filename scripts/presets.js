@@ -3,7 +3,7 @@ const bgs = [
   'bg/space',
   'bg/urban_landscape'
 ]
-const sounds = ['beep', 'ugh', 'wib']
+const sounds = ['beep', 'ugh', 'wib', 'wawa']
 
 class Preset {
   constructor(key, bg, head, sound, soundPitch, soundPitchRange) {

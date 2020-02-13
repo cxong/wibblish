@@ -1,3 +1,5 @@
+import { range } from './util'
+
 const assets = {
   spritesheets: [
   ],
@@ -12,7 +14,13 @@ const assets = {
   ],
   sounds: [
     'beep', 'ugh', 'wib'
-  ],
+  ].concat(
+    range('wawa/start/', 4)
+  ).concat(
+    range('wawa/mid/', 6)
+  ).concat(
+    range('wawa/end/', 4)
+  ),
   music: [
     // 'title', '1'
   ],

@@ -12,13 +12,9 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    this.preloadBar = this.add.sprite((SCREEN_WIDTH - 24) / 2,
-                                      (SCREEN_HEIGHT - 24) / 2,
-                                      'merc')
-    /*this.preloadBar.animations.add(
-      'run_right', [12, 13, 14, 15], 20, true
-    );
-    this.preloadBar.animations.play('run_right');*/
+    this.preloadBar = this.add.sprite((SCREEN_WIDTH - 15) / 2,
+                                      (SCREEN_HEIGHT - 15) / 2,
+                                      'qubodup-small-glad')
     this.load.setPreloadSprite(this.preloadBar)
 
     var basicGame = this

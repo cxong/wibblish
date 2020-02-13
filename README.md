@@ -32,3 +32,4 @@ Gibberish speech generator toy
   - beep: GUI sounds collection by copyc4t https://opengameart.org/content/gui-sounds-collection CC-BY 3.0
   - ugh: Voice Ugh by qubodup http://freesound.org/people/qubodup/sounds/239140/ CC-BY 3.0
   - wawa: "CHARLIE BROWN" teacher wa-wa effect by JohnsonBrandEditing https://freesound.org/people/JohnsonBrandEditing/sounds/243379/ CC0
+- Smiley by qubodup https://opengameart.org/content/qubodup’s-small-smileys CC0

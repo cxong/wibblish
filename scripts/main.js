@@ -118,8 +118,19 @@ export default class extends Phaser.State {
     updateOption(
       'sound', sounds, 'sound', (option) => { return option },
       (option) => {
-        return this.game.add.audio(option)
+        this.soundType = 'normal'
+        if (option === 'wawa') {
+          this.soundType = 'wawa'
+          return this.wawaSounds.start[0]
+        } else {
+          return this.game.add.audio(option)
+        }
       })
+    this.wawaSounds = {
+      start: Assets.sounds.filter(sound => sound.startsWith('wawa/start/')).map(sound => this.game.add.audio(sound)),
+      mid: Assets.sounds.filter(sound => sound.startsWith('wawa/mid/')).map(sound => this.game.add.audio(sound)),
+      end: Assets.sounds.filter(sound => sound.startsWith('wawa/end/')).map(sound => this.game.add.audio(sound)),
+    }
 
     const text = document.getElementById('speech').value
 
