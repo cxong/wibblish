@@ -7,7 +7,7 @@ import Generator from './generator/main'
 import Head from './head'
 import { presets, bgs, sounds } from './presets'
 
-const CHAR_FRAMES = 3
+const CHAR_FRAMES = 6
 
 const yRatio = SCREEN_HEIGHT * 3 / 5
 const frameMargin = 10
@@ -143,15 +143,11 @@ export default class extends Phaser.State {
           this.nextCharTimer = CHAR_FRAMES
           const newChar = this.text.text[this.charIndex - 1]
           if (!/\s/.test(newChar)) {
-            this.sound.play()
+            this.sound.play('', 0, 1, false, true);
             let pitch = parseFloat(document.getElementById('pitch').value)
             const pitchRange = parseFloat(document.getElementById('pitchRange').value)
             pitch += Math.random() * pitchRange
-            if (pitch < 0.1) {
-              pitch = 0.1
-            } else if (pitch > 8) {
-              pitch = 8
-            }
+            pitch = Phaser.Math.clamp(pitch, 0.1, 8);
             if (this.sound._sound) {
               this.sound._sound.playbackRate.value = pitch
             }
