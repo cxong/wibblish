@@ -3,7 +3,7 @@ Gibberish speech generator toy
 
 ## Getting started
 
-    yarn install
+    yarn
     yarn run dev
 
 ## Licenses
