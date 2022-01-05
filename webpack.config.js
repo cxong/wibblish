@@ -26,14 +26,11 @@ module.exports = {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     publicPath: './dist/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   watch: true,
   plugins: [
     definePlugin,
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */
-    }),
     new BrowserSyncPlugin({
       host: process.env.IP || 'localhost',
       port: process.env.PORT || 3000,
@@ -41,9 +38,11 @@ module.exports = {
         baseDir: ['./', './build']
       }
     }),
-    new CopyWebpackPlugin([
-      { from: 'node_modules/materialize-css/dist' }
-    ])
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "node_modules/materialize-css/dist" },
+      ],
+    })
   ],
   module: {
     rules: [
@@ -54,17 +53,17 @@ module.exports = {
       { test: /phaser-nineslice\.js$/, use: ['exports-loader?PhaserNineSlice=PhaserNineSlice'] }
     ]
   },
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  },
   resolve: {
     alias: {
       'phaser': phaser,
       'pixi': pixi,
       'p2': p2,
       'phaser-nineslice': path.join(__dirname, '/node_modules/@orange-games/phaser-nineslice/build/phaser-nineslice.js')
+    },
+    fallback: {
+      fs: false,
+      net: false,
+      tls: false,
     }
   }
 }
